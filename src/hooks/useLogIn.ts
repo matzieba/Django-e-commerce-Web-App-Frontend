@@ -9,9 +9,9 @@ export const useLogIn = () => {
 
     const { login } = useContext(AuthContext);
 
-    const logIn = useCallback(async (email: string, password: string) => {
+    const logIn = useCallback(async (username: string, password: string) => {
         try {
-            const result = await login(email, password);
+            const result = await login(username, password);
             return result;
         } catch (e) {
             return Promise.reject(e);

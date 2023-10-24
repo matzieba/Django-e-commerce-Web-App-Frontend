@@ -7,7 +7,7 @@ import { useMe } from "../../clients/userClient";
 export type ContextProps = {
     user: User | undefined
     logout: () => void;
-    login: (email: string, password: string) => any;
+    login: (username: string, password: string) => any;
     isLoggedIn: boolean;
 };
 
@@ -18,7 +18,6 @@ export const defaultContext: ContextProps = {
     isLoggedIn: false,
 };
 
-const baseUrl = process.env.API_URL;
 
 export const AuthContext = React.createContext(defaultContext);
 
@@ -26,9 +25,9 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) =>
 
     const user = useMe();
 
-    const login = React.useCallback(async (email: string, password: string) => {
+    const login = React.useCallback(async (username: string, password: string) => {
         try {
-            const response = await axios.post(`${baseUrl}login/`, { email, password }, {
+            const response = await axios.post(`http://127.0.0.1:8000/login/`, { username, password }, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

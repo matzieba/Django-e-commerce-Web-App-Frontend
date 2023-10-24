@@ -10,16 +10,16 @@ export const Login = () => {
 
     const { control, setError, handleSubmit, formState: { isSubmitting, errors } } = useForm({
         defaultValues: {
-            email: '',
+            username: '',
             password: '',
         },
     });
 
     const { logIn } = useLogIn();
 
-    const onSubmit = React.useCallback (async ({ email, password }: { email: string; password: string }) => {
+    const onSubmit = React.useCallback (async ({ username, password }: { username: string; password: string }) => {
         try {
-            await logIn(email, password);
+            await logIn(username, password);
         } catch (e: any) {
             
             setError('password', { type: 'error', message: 'something went wrong' });
@@ -35,7 +35,7 @@ export const Login = () => {
                         <Grid container direction='column' spacing={3}>
                             <Grid item xs={12}>
                                 <Controller
-                                    name='email'
+                                    name='username'
                                     control={control}
                                     rules={{
                                         required: 'this field is required',
@@ -45,10 +45,10 @@ export const Login = () => {
                                             {...field}
                                             fullWidth
                                             variant='outlined'
-                                            label='email'
-                                            name='email'
-                                            error={!!errors.email}
-                                            helperText={errors.email?.message}
+                                            label='username'
+                                            name='username'
+                                            error={!!errors.username}
+                                            helperText={errors.username?.message}
                                         />
                                     )}
                                 />
