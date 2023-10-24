@@ -18,7 +18,7 @@ export const defaultContext: ContextProps = {
     isLoggedIn: false,
 };
 
-const baseUrl = process.env.REACT_APP_CVT_API_URL;
+const baseUrl = process.env.API_URL;
 
 export const AuthContext = React.createContext(defaultContext);
 
@@ -28,7 +28,11 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) =>
 
     const login = React.useCallback(async (email: string, password: string) => {
         try {
-            const response = await axios.post(`${baseUrl}/api/login`, { email, password });
+            const response = await axios.post(`${baseUrl}login/`, { email, password }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
             if (response.data) {
                 localStorage.setItem('access_token', response.data.token);
             }
