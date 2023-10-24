@@ -23,7 +23,6 @@ export const getUserMe = async (): Promise<User> => {
 };
 
 export const useMe = () => {
-    getUserMe()
     const { data: user } = useQuery<User>('userMe', getUserMe, {
     });
     return user
