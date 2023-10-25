@@ -1,7 +1,7 @@
 import React from 'react';
 import { User } from "../../types/user";
 import axios from "axios";
-import { useMe } from "../../hooks/useMe";
+import { useMe } from "../../hooks/useMe"
 
 
 
@@ -24,7 +24,7 @@ export const AuthContext = React.createContext(defaultContext);
 
 export const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 
-    const user = useMe();
+    const { user } = useMe();
 
     const login = React.useCallback(async (username: string, password: string) => {
         try {

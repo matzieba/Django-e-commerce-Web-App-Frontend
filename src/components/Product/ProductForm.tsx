@@ -3,7 +3,8 @@ import {useForm, SubmitHandler} from 'react-hook-form';
 import { getProduct } from "../../clients/productClient";
 import { Product } from "../../types/product";
 import { useProductCrud } from "../../hooks/useProducts";
-import { useParams } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useMe} from "../../hooks/useMe";
 
 
 
@@ -13,7 +14,8 @@ export const ProductForm: React.FC = () => {
     const { createProduct, updateProduct } = useProductCrud();
     const { productId } = useParams();
     const [ loading, setLoading ] = React.useState(false);
-
+    const { isClient, isSeller } = useMe();
+    const navigate = useNavigate();
 
     React.useEffect(() => {
         const fetchProduct = async () => {
@@ -60,11 +62,16 @@ export const ProductForm: React.FC = () => {
         }
     }, [product, setValue]);
 
-    const onSubmit: SubmitHandler<Product> = (data: Product) => {
-        if (data.id === 0) {
-            createProduct(data);
-        } else {
-            updateProduct({ productId: data.id, updatedProduct: data });
+    const onSubmit: SubmitHandler<Product> = async (data: Product) => {
+        try {
+            if (data.id === 0) {
+                await createProduct(data);
+            } else {
+                await updateProduct({ productId: data.id, updatedProduct: data });
+            }
+            navigate(`/products/`);
+        } catch (error: any) {
+            throw new Error(error.response.data.detail);
         }
     };
 
@@ -79,7 +86,8 @@ export const ProductForm: React.FC = () => {
             <input {...register('description')} placeholder="Description" />
             <input {...register('price', { required: true })} placeholder="Price" type="number"/>
             <input {...register('category')} placeholder="Category" />
-            <button type="submit">{isSubmitting ? 'Submitting...' : 'Submit'}</button>
+            {isSeller && <button type="submit">{isSubmitting ? 'Submitting...' : 'Submit'}</button>}
+            {isClient && <button type="submit">{isSubmitting ? 'Submitting...' : 'Add to Cart'}</button>}
         </form>
     );
 };
