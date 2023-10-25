@@ -3,8 +3,8 @@ import {useForm, SubmitHandler} from 'react-hook-form';
 import { getProduct } from "../../clients/productClient";
 import { Product } from "../../types/product";
 import { useProductCrud } from "../../hooks/useProducts";
-import {useNavigate, useParams} from 'react-router-dom';
-import {useMe} from "../../hooks/useMe";
+import { useNavigate, useParams } from 'react-router-dom';
+import { useMe } from "../../hooks/useMe";
 
 
 
