@@ -1,12 +1,38 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import {deleteProduct, getProducts, createProduct, updateProduct } from '../clients/productClient'
+import {Product, ProductQueryResponse} from "../types/product";
+
+export const useProductCrud = () => {
+
+    const queryClient = useQueryClient();
+
+    const { data } = useQuery<ProductQueryResponse>('products', getProducts);
+
+    const createProductMutation = useMutation(createProduct,
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries('products');
+            },
+        });
+
+    const updateProductMutation = useMutation(({productId, updatedProduct}: {productId: number, updatedProduct: Product}) => updateProduct(productId, updatedProduct),{
+        onSuccess: () => {
+            queryClient.invalidateQueries('products');
+        }
+    });
+
+    const deleteProductMutation = useMutation(deleteProduct,
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries('products');
+            },
+        });
 
 
-import { getProducts } from "../clients/productClient";
-import { ProductQueryResponse } from "../types/product";
-
-
-export const useProducts = () => {
-    const { data } = useQuery<ProductQueryResponse>('products', getProducts, {});
-
-    return data ? data.results : [];
+    return {
+        products: data ? data.results : [],
+        createProduct: createProductMutation.mutate,
+        updateProduct: updateProductMutation.mutate,
+        deleteProduct: deleteProductMutation.mutate,
+    };
 };
