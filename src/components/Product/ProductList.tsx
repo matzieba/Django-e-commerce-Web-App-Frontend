@@ -21,7 +21,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export const ProductList: React.FC = () => {
 
-    const { cart } = useContext(CartContext); // access cart from Context
+    const { cart } = useContext(CartContext);
 
     const cartItemsCount = cart && cart.length;
 
