@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
-    IconButton,
     Table,
     TableBody,
     TableCell,
@@ -8,17 +7,23 @@ import {
     TableHead,
     TableRow,
     Box,
-    Typography
+    IconButton,
+    Badge
 } from '@mui/material';
 import { ProductRow } from "./ProductRow";
 import { useProductCrud } from "../../hooks/useProducts";
 import { useNavigate } from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
-import {useMe} from "../../hooks/useMe";
-
+import { useMe } from "../../hooks/useMe";
+import { CartContext } from "../../contexts/CartContext/CartContext";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 
 export const ProductList: React.FC = () => {
+
+    const { cart } = useContext(CartContext); // access cart from Context
+
+    const cartItemsCount = cart && cart.length;
 
     const { isSeller } = useMe();
 
@@ -41,6 +46,11 @@ export const ProductList: React.FC = () => {
 
     return (
         <React.Fragment>
+            <IconButton>
+                <Badge badgeContent={cartItemsCount} color="primary">
+                    <AddShoppingCartIcon />
+                </Badge>
+            </IconButton>
             <TableContainer sx={{ overflowX: { xs: 'auto', sm: 'auto', md: 'auto', lg: 'visible' } }}>
                 <Table>
                     <TableHead>
