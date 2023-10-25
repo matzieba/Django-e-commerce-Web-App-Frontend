@@ -25,7 +25,6 @@ export const Login = () => {
             await logIn(username, password);
             navigate('/products')
         } catch (e: any) {
-            
             setError('password', { type: 'error', message: 'something went wrong' });
             }
         }, [logIn, setError, navigate]);
