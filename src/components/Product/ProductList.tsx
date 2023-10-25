@@ -1,18 +1,26 @@
 import React from 'react';
 import {
+    IconButton,
     Table,
     TableBody,
     TableCell,
     TableContainer,
     TableHead,
     TableRow,
+    Box,
+    Typography
 } from '@mui/material';
 import { ProductRow } from "./ProductRow";
 import { useProductCrud } from "../../hooks/useProducts";
 import { useNavigate } from "react-router-dom";
+import AddIcon from '@mui/icons-material/Add';
+import {useMe} from "../../hooks/useMe";
+
 
 
 export const ProductList: React.FC = () => {
+
+    const { isSeller } = useMe();
 
     const { deleteProduct, products} = useProductCrud();
 
@@ -26,6 +34,10 @@ export const ProductList: React.FC = () => {
         navigate(`/product/${id}`);
     }, [navigate]);
 
+    const onCreate = React.useCallback(() => {
+        navigate(`/product/`);
+    }, [navigate]);
+
 
     return (
         <React.Fragment>
@@ -37,7 +49,9 @@ export const ProductList: React.FC = () => {
                             <TableCell>Name:</TableCell>
                             <TableCell>Description:</TableCell>
                             <TableCell>Price:</TableCell>
-                            <TableCell>Category:</TableCell>
+                            <TableCell>Category Id:</TableCell>
+                            <TableCell></TableCell>
+                            {isSeller && <TableCell></TableCell>}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -56,6 +70,13 @@ export const ProductList: React.FC = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            {isSeller && (
+                <Box>
+                    <IconButton onClick={() => onCreate()} size="large">
+                        <AddIcon fontSize="large" />
+                    </IconButton>
+                </Box>
+            )}
         </React.Fragment>
     );
 };

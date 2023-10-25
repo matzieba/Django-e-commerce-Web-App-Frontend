@@ -14,6 +14,7 @@ export const Root = () => {
                 <Route path='/login' element={<Login/>}/>
                 <Route path='/products' element={<ProductList/>}/>
                 <Route path='/product/:productId' element={<ProductForm/>}/>
+                <Route path='/product/' element={<ProductForm/>}/>
                 <Route path="*" element={<Navigate to='/login'/>}/>
             </Routes>
         </Router>

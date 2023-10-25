@@ -2,8 +2,9 @@ import React from 'react';
 import { Paper, TableRow, TableCell, Typography, IconButton } from '@mui/material';
 import { Product } from "../../types/product";
 import EditIcon from '@mui/icons-material/Edit';
-
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import {useMe} from "../../hooks/useMe";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 interface Props {
     product: Product;
@@ -11,7 +12,9 @@ interface Props {
     onDelete: (id: number) => void;
 }
 
-export const ProductRow: React.FC<Props> = ({ product, onDelete, onEdit}) => {
+export const ProductRow: React.FC<Props> = ({ product, onDelete, onEdit }) => {
+
+    const { isClient, isSeller } = useMe();
 
     return (
         <Paper component={TableRow} elevation={1}>
@@ -40,11 +43,27 @@ export const ProductRow: React.FC<Props> = ({ product, onDelete, onEdit}) => {
                     {product.category}
                 </Typography>
             </TableCell>
-            <TableCell>
-                <IconButton onClick={() => onEdit(product.id)}>
-                    <EditIcon />
-                </IconButton>
-            </TableCell>
+            {isSeller && (
+                <React.Fragment>
+                    <TableCell>
+                        <IconButton onClick={() => onEdit(product.id)}>
+                            <EditIcon />
+                        </IconButton>
+                    </TableCell>
+                    <TableCell>
+                        <IconButton onClick={() => onDelete(product.id)}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </TableCell>
+                </React.Fragment>
+            )}
+            {isClient && (
+                    <TableCell>
+                        <IconButton onClick={() => onEdit(product.id)}>
+                            <AddShoppingCartIcon />
+                        </IconButton>
+                    </TableCell>
+            )}
         </Paper>
     );
 };
