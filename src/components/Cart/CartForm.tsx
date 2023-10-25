@@ -24,7 +24,7 @@ import {useMe} from "../../hooks/useMe";
 
 export const CartForm: React.FC = () => {
 
-    const { cart } = useContext(CartContext);
+    const { cart, setCart } = useContext(CartContext);
     const [products, setProducts] = React.useState<Array<ProductInCart>>([]);
     const { createOrder } = useOrderCrud();
     const navigate = useNavigate();
@@ -41,6 +41,7 @@ export const CartForm: React.FC = () => {
         data.client = user && user.id;
         try {
             await createOrder(data);
+            setCart([])
             navigate(`/products/`);
         } catch (error: any) {
             throw new Error(error.response.data.detail);

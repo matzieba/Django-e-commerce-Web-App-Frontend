@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Dispatch, SetStateAction} from 'react';
 import { Product } from "../../types/product";
 
 
@@ -6,11 +6,13 @@ import { Product } from "../../types/product";
 export type ContextProps = {
     cart: Product[] | undefined
     addToCart: (product: Product) => void;
+    setCart: Dispatch<SetStateAction<Product[]>>
 };
 
 export const defaultContext: ContextProps = {
     cart: undefined,
     addToCart: () => {},
+    setCart: () => {},
 };
 
 
@@ -28,7 +30,8 @@ export const CartProvider: React.FC<React.PropsWithChildren> = ({ children }) =>
         <CartContext.Provider
             value={{
                 cart,
-                addToCart
+                addToCart,
+                setCart,
             }}
         >
             {children}
