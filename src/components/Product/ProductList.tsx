@@ -17,6 +17,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { useMe } from "../../hooks/useMe";
 import { CartContext } from "../../contexts/CartContext/CartContext";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 
 export const ProductList: React.FC = () => {
@@ -25,7 +26,7 @@ export const ProductList: React.FC = () => {
 
     const cartItemsCount = cart && cart.length;
 
-    const { isSeller } = useMe();
+    const { isSeller, isClient } = useMe();
 
     const { deleteProduct, products} = useProductCrud();
 
@@ -46,13 +47,16 @@ export const ProductList: React.FC = () => {
 
     return (
         <React.Fragment>
-            <IconButton onClick={()=>navigate(`/checkout/`)}>
+            {isClient && (
+                <IconButton
+                onClick={() => navigate(`/checkout/`)}
+                disabled={cart && cart.length === 0}
+            >
                 <Badge badgeContent={cartItemsCount} color="primary">
-                    <AddShoppingCartIcon
-
-                    />
+                    <AddShoppingCartIcon/>
                 </Badge>
             </IconButton>
+            )}
             <TableContainer sx={{ overflowX: { xs: 'auto', sm: 'auto', md: 'auto', lg: 'visible' } }}>
                 <Table>
                     <TableHead>
@@ -83,11 +87,18 @@ export const ProductList: React.FC = () => {
                 </Table>
             </TableContainer>
             {isSeller && (
-                <Box>
-                    <IconButton onClick={() => onCreate()} size="large">
-                        <AddIcon fontSize="large" />
-                    </IconButton>
-                </Box>
+                <React.Fragment>
+                    <Box>
+                        <IconButton onClick={() => onCreate()} size="large">
+                            <AddIcon fontSize="large" />
+                        </IconButton>
+                    </Box>
+                    <Box>
+                        <IconButton onClick={() => navigate(`/orders/statistics/`)} size="large">
+                            <BarChartIcon fontSize="large" />
+                        </IconButton>
+                    </Box>
+                </React.Fragment>
             )}
         </React.Fragment>
     );
