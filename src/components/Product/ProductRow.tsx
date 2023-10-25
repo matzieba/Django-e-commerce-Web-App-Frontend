@@ -17,7 +17,7 @@ export const ProductRow: React.FC<Props> = ({ product, onDelete, onEdit }) => {
 
     const { isClient, isSeller } = useMe();
 
-    const { cart, addToCart } = useContext(CartContext);
+    const { addToCart } = useContext(CartContext);
 
     return (
         <Paper component={TableRow} elevation={1}>

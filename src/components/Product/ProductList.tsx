@@ -46,9 +46,11 @@ export const ProductList: React.FC = () => {
 
     return (
         <React.Fragment>
-            <IconButton>
+            <IconButton onClick={()=>navigate(`/checkout/`)}>
                 <Badge badgeContent={cartItemsCount} color="primary">
-                    <AddShoppingCartIcon />
+                    <AddShoppingCartIcon
+
+                    />
                 </Badge>
             </IconButton>
             <TableContainer sx={{ overflowX: { xs: 'auto', sm: 'auto', md: 'auto', lg: 'visible' } }}>

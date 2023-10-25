@@ -1,6 +1,7 @@
 import { Product } from './product'
 
-export type Cart = {
+export type ProductInCart = {
     product: Product
     quantity: number;
 };
+
