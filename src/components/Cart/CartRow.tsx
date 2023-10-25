@@ -1,6 +1,6 @@
 import React from 'react';
 import { Paper, TableRow, TableCell, Typography } from '@mui/material';
-import {ProductInCart} from "../../types/cart";
+import { ProductInCart } from "../../types/cart";
 
 interface Props {
     product: ProductInCart;

@@ -1,4 +1,4 @@
-import  {ProductInCart } from "./product";
+import  { ProductInCart } from "./product";
 
 
 

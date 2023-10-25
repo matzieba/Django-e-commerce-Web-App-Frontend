@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import {
-    Box,
     Button,
     Table,
     TableBody,
@@ -15,17 +14,17 @@ import { CartContext } from "../../contexts/CartContext/CartContext";
 import { transformCart } from "../../helpers/transformCart"
 import { ProductInCart } from "../../types/cart";
 import { CartRow } from "./CartRow";
-import {useOrderCrud} from "../../hooks/useOrders";
-import {SubmitHandler, useForm} from "react-hook-form";
-import {useNavigate} from "react-router-dom";
-import {Order} from "../../types/order";
-import {useMe} from "../../hooks/useMe";
+import { useOrderCrud } from "../../hooks/useOrders";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { Order } from "../../types/order";
+import { useMe } from "../../hooks/useMe";
 
 
 export const CartForm: React.FC = () => {
 
     const { cart, setCart } = useContext(CartContext);
-    const [products, setProducts] = React.useState<Array<ProductInCart>>([]);
+    const [ products, setProducts ] = React.useState<Array<ProductInCart>>([]);
     const { createOrder } = useOrderCrud();
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm<Order>();

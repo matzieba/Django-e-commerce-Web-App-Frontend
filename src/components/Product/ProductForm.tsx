@@ -1,5 +1,5 @@
 import React from 'react';
-import {useForm, SubmitHandler} from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { getProduct } from "../../clients/productClient";
 import { Product } from "../../types/product";
 import { useProductCrud } from "../../hooks/useProducts";
