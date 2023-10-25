@@ -4,6 +4,7 @@ import { Box, Grid,  Paper,TextField, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
 import { useLogIn } from '../hooks/useLogIn';
+import { useNavigate } from "react-router-dom";
 
 
 export const Login = () => {
@@ -17,14 +18,17 @@ export const Login = () => {
 
     const { logIn } = useLogIn();
 
+    const navigate = useNavigate();
+
     const onSubmit = React.useCallback (async ({ username, password }: { username: string; password: string }) => {
         try {
             await logIn(username, password);
+            navigate('/products')
         } catch (e: any) {
             
             setError('password', { type: 'error', message: 'something went wrong' });
             }
-        }, [logIn, setError]);
+        }, [logIn, setError, navigate]);
 
     return (
         <Box display='flex' width='100%' alignItems='center' flexDirection='column'>

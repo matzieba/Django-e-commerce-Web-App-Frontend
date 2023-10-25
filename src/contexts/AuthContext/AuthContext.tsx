@@ -1,7 +1,8 @@
 import React from 'react';
 import { User } from "../../types/user";
 import axios from "axios";
-import { useMe } from "../../clients/userClient";
+import { useMe } from "../../hooks/useMe";
+
 
 
 export type ContextProps = {
