@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     Box,
-    Button, IconButton,
+    IconButton,
     Table,
     TableBody,
     TableCell,
@@ -9,7 +9,12 @@ import {
     TableHead,
     TableRow,
     TextField,
+    Paper,
+    Grid,
+    Typography,
+
 } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 
 
 import { useForm, Controller } from "react-hook-form";
@@ -34,7 +39,7 @@ export const OrderStatistics: React.FC = () => {
 
     const [orderStats, setOrderStats] = React.useState<OrderStats[]>([]);
 
-    const { register, handleSubmit, control } = useForm<OrderStatsFormValues>();
+    const { handleSubmit, control, formState: { isSubmitting } } = useForm<OrderStatsFormValues>();
 
     const onSubmit = async (data: OrderStatsFormValues) => {
         try {
@@ -55,68 +60,92 @@ export const OrderStatistics: React.FC = () => {
                 {orderStats?.length === 0 && (
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            <Box marginBottom={2}>
-                                <Controller
-                                    name="startDate"
-                                    control={control}
-                                    defaultValue={null}
-                                    // @ts-ignore
-                                    render={({ field: { onChange, value } }) => (
-                                        <MobileDatePicker
-                                            label="Start Date"
-                                            value={value}
-                                            onChange={onChange}
-                                        />
-                                    )}
-                                />
-                                <Controller
-                                    name="endDate"
-                                    control={control}
-                                    defaultValue={null}
-                                    // @ts-ignore
-                                    render={({ field: { onChange, value } }) => (
-                                        <MobileDatePicker
-                                            label="End Date"
-                                            value={value}
-                                            onChange={onChange}
-                                        />
-                                    )}
-                                />
+                            <Box display='flex' width='100%' alignItems='center' flexDirection='column'>
+                                <Paper p={4} component={Box} width={{ xs: '100%', sm: 190 }}>
+                                    <Typography variant='body2' align='center' color='grey.500'>Please fill in order information</Typography>
+                                    <Box pt={2}>
+                                        <Grid container direction='column' spacing={3}>
+                                            <Grid item xs={12}>
+                                                <Controller
+                                                    name="startDate"
+                                                    control={control}
+                                                    defaultValue={null}
+                                                    // @ts-ignore
+                                                    render={({ field: { onChange, value } }) => (
+                                                        <MobileDatePicker
+                                                            label="Start Date"
+                                                            value={value}
+                                                            onChange={onChange}
+                                                        />
+                                                    )}
+                                                />
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <Controller
+                                                    name="endDate"
+                                                    control={control}
+                                                    defaultValue={null}
+                                                    // @ts-ignore
+                                                    render={({ field: { onChange, value } }) => (
+                                                        <MobileDatePicker
+                                                            label="End Date"
+                                                            value={value}
+                                                            onChange={onChange}
+                                                        />
+                                                    )}
+                                                />
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <Controller
+                                                    name="num_products"
+                                                    control={control}
+                                                    rules={{ required: true }}
+                                                    render={({ field }) =>
+                                                        <TextField {...field} fullWidth variant='outlined' label="Number of Products" type="number" />}
+                                                />
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <LoadingButton fullWidth type='submit' size='large' loading={isSubmitting} variant='contained' color='primary'>
+                                                    Get Order Stats
+                                                </LoadingButton>
+                                            </Grid>
+                                        </Grid>
+                                    </Box>
+                                </Paper>
                             </Box>
-                            <Box marginBottom={2}>
-                                <TextField {...register('num_products')} type="number" label="Number of Products" />
-                            </Box>
-                            <Button variant="contained" color="primary" type="submit">
-                                Get Order Stats
-                            </Button>
                         </form>
                     </LocalizationProvider>
                 )}
                 {orderStats?.length !== 0 && (
                     <React.Fragment>
-                        <TableContainer sx={{ overflowX: { xs: 'auto', sm: 'auto', md: 'auto', lg: 'visible' } }}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Name:</TableCell>
-                                        <TableCell>Quantity:</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    <React.Fragment>
-                                        {orderStats && orderStats.map((orderStat, index) => (
-                                            <OrderStatRow
-                                                key={index}
-                                                orderStat={orderStat}
-                                            />
-                                        ))}
-                                    </React.Fragment>
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                        <IconButton onClick={() => setOrderStats([])} size="large">
-                            <RefreshIcon fontSize="large" />
-                        </IconButton>
+                        <Box display='flex' width='100%' alignItems='center' flexDirection='column'>
+                            <Typography variant='body2' align='center' color='grey.500'>Most ordered products:</Typography>
+                            <Paper p={4} component={Box} width={{ xs: '100%', sm: 350 }}>
+                                <TableContainer sx={{ overflowX: { xs: 'auto', sm: 'auto', md: 'auto', lg: 'visible' } }}>
+                                    <Table>
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell>Name:</TableCell>
+                                                <TableCell>Quantity:</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            <React.Fragment>
+                                                {orderStats && orderStats.map((orderStat, index) => (
+                                                    <OrderStatRow
+                                                        key={index}
+                                                        orderStat={orderStat}
+                                                    />
+                                                ))}
+                                            </React.Fragment>
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                                <IconButton onClick={() => setOrderStats([])} size="large">
+                                    <RefreshIcon fontSize="large" />
+                                </IconButton>
+                            </Paper>
+                        </Box>
                     </React.Fragment>
                 )}
             </React.Fragment>
