@@ -53,5 +53,7 @@ Client is able to create an order.
 
 Seller is able to create/edit/delete product ad view order stats.
 
+At this point BE endpoints are hardcoded. 
+
 Many additional features still in progress :)
 
