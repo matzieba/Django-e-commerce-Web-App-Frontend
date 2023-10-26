@@ -44,3 +44,14 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## App usage 
+At this point app does not provide create user feature. In order to use app create user on your BE and then log in.
+Depend on created user type you can experience different journey. 
+
+Client is able to create an order.
+
+Seller is able to create/edit/delete product ad view order stats.
+
+Many additional features still in progress :)
+
