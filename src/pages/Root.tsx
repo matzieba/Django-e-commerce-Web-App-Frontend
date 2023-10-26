@@ -4,6 +4,7 @@ import { Login } from './Login'
 import { ProductList } from '../components/Product/ProductList'
 import { ProductForm } from '../components/Product/ProductForm'
 import { CartForm } from '../components/Cart/CartForm'
+import { OrderStatistics } from "../components/Order/OrderStatistics";
 
 
 
@@ -17,6 +18,7 @@ export const Root = () => {
                 <Route path='/product/:productId' element={<ProductForm/>}/>
                 <Route path='/product/' element={<ProductForm/>}/>
                 <Route path='/checkout/' element={<CartForm/>}/>
+                <Route path='/orders/statistics/' element={<OrderStatistics/>}/>
                 <Route path="*" element={<Navigate to='/login'/>}/>
             </Routes>
         </Router>

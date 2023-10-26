@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Product, ProductQueryResponse} from "../types/product";
+import { Product, ProductQueryResponse } from "../types/product";
 
 
 

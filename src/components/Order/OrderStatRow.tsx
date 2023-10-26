@@ -1,28 +1,23 @@
 import React from 'react';
 import { Paper, TableRow, TableCell, Typography } from '@mui/material';
-import { ProductInCart } from "../../types/cart";
+import {OrderStats} from "../../types/order";
 
 interface Props {
-    product: ProductInCart;
+    orderStat: OrderStats;
 }
 
-export const CartRow: React.FC<Props> = ({ product}) => {
+export const OrderStatRow: React.FC<Props> = ({ orderStat }) => {
 
     return (
         <Paper component={TableRow} elevation={1}>
             <TableCell>
                 <Typography variant="body2">
-                    {product.product.name}
+                    {orderStat.product}
                 </Typography>
             </TableCell>
             <TableCell>
                 <Typography variant="body2">
-                    {product.product.price}
-                </Typography>
-            </TableCell>
-            <TableCell>
-                <Typography variant="body2">
-                    {product.quantity}
+                    {orderStat.orders}
                 </Typography>
             </TableCell>
         </Paper>

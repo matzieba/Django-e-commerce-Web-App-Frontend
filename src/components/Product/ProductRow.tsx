@@ -1,11 +1,11 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { Paper, TableRow, TableCell, Typography, IconButton } from '@mui/material';
 import { Product } from "../../types/product";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {useMe} from "../../hooks/useMe";
+import { useMe } from "../../hooks/useMe";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import {CartContext} from "../../contexts/CartContext/CartContext";
+import { CartContext } from "../../contexts/CartContext/CartContext";
 
 interface Props {
     product: Product;
