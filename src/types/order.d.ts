@@ -11,3 +11,8 @@ type OrderStatsParams = {
     date_to: Date | null;
     num_products: number;
 };
+
+type OrderStats = {
+    product: string;
+    orders: number;
+};
